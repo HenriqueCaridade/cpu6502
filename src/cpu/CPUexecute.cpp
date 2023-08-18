@@ -10,90 +10,90 @@ int CPU::execute(int cycles, Memory &memory) {
             // LOAD INSTRUCTIONS
             case ldaImm: {
                 A = fetchByte(cycles, memory);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case ldxImm: {
                 X = fetchByte(cycles, memory);
-                setLoadFlags(X);
+                setAssignmentFlags(X);
             } break;
             case ldyImm: {
                 Y = fetchByte(cycles, memory);
-                setLoadFlags(Y);
+                setAssignmentFlags(Y);
             } break;
             case ldaZpg: {
                 word address = zeroPageAddress(cycles, memory);
                 A = readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case ldxZpg: {
                 word address = zeroPageAddress(cycles, memory);
                 X = readByte(cycles, memory, address);
-                setLoadFlags(X);
+                setAssignmentFlags(X);
             } break;
             case ldyZpg: {
                 word address = zeroPageAddress(cycles, memory);
                 Y = readByte(cycles, memory, address);
-                setLoadFlags(Y);
+                setAssignmentFlags(Y);
             } break;
             case ldaZpX: {
                 word address = zeroPageAddress(cycles, memory, X);
                 A = readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case ldxZpY: {
                 word address = zeroPageAddress(cycles, memory, Y);
                 X = readByte(cycles, memory, address);
-                setLoadFlags(X);
+                setAssignmentFlags(X);
             } break;
             case ldyZpX: {
                 word address = zeroPageAddress(cycles, memory, X);
                 Y = readByte(cycles, memory, address);
-                setLoadFlags(Y);
+                setAssignmentFlags(Y);
             } break;
             case ldaAbs: {
                 word address = absoluteAddress(cycles, memory);
                 A = readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case ldxAbs: {
                 word address = absoluteAddress(cycles, memory);
                 X = readByte(cycles, memory, address);
-                setLoadFlags(X);
+                setAssignmentFlags(X);
             } break;
             case ldyAbs: {
                 word address = absoluteAddress(cycles, memory);
                 Y = readByte(cycles, memory, address);
-                setLoadFlags(Y);
+                setAssignmentFlags(Y);
             } break;
             case ldaAbX: {
                 word address = absoluteAddress(cycles, memory, X);
                 A = readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case ldaAbY: {
                 word address = absoluteAddress(cycles, memory, Y);
                 A = readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case ldxAbY: {
                 word address = absoluteAddress(cycles, memory, Y);
                 X = readByte(cycles, memory, address);
-                setLoadFlags(X);
+                setAssignmentFlags(X);
             } break;
             case ldyAbX: {
                 word address = absoluteAddress(cycles, memory, X);
                 Y = readByte(cycles, memory, address);
-                setLoadFlags(Y);
+                setAssignmentFlags(Y);
             } break;
             case ldaIdX: {
                 word address = indirectPreAddress(cycles, memory, X);
                 A = readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case ldaIdY: {
                 word address = indirectPostAddress(cycles, memory, Y);
                 A = readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             // STORE INSTRUCTIONS
             case staZpg: {
@@ -133,11 +133,11 @@ int CPU::execute(int cycles, Memory &memory) {
                 writeByte(Y, cycles, memory, address);
             } break;
             case staAbX: {
-                word address = absoluteAddressS(cycles, memory, X);
+                word address = absoluteAddressFixed(cycles, memory, X);
                 writeByte(A, cycles, memory, address);
             } break;
             case staAbY: {
-                word address = absoluteAddressS(cycles, memory, Y);
+                word address = absoluteAddressFixed(cycles, memory, Y);
                 writeByte(A, cycles, memory, address);
             } break;
             case staIdX: {
@@ -145,128 +145,128 @@ int CPU::execute(int cycles, Memory &memory) {
                 writeByte(A, cycles, memory, address);
             } break;
             case staIdY: {
-                word address = indirectPostAddressS(cycles, memory, Y);
+                word address = indirectPostAddressFixed(cycles, memory, Y);
                 writeByte(A, cycles, memory, address);
             } break;
             // AND
             case andImm: {
                 A &= fetchByte(cycles, memory);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case andZpg: {
                 word address = zeroPageAddress(cycles, memory);
                 A &= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case andZpX: {
                 word address = zeroPageAddress(cycles, memory, X);
                 A &= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case andAbs: {
                 word address = absoluteAddress(cycles, memory);
                 A &= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case andAbX: {
                 word address = absoluteAddress(cycles, memory, X);
                 A &= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case andAbY: {
                 word address = absoluteAddress(cycles, memory, Y);
                 A &= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case andIdX: {
                 word address = indirectPreAddress(cycles, memory, X);
                 A &= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case andIdY: {
                 word address = indirectPostAddress(cycles, memory, Y);
                 A &= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             // EOR
             case eorImm: {
                 A ^= fetchByte(cycles, memory);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case eorZpg: {
                 word address = zeroPageAddress(cycles, memory);
                 A ^= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case eorZpX: {
                 word address = zeroPageAddress(cycles, memory, X);
                 A ^= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case eorAbs: {
                 word address = absoluteAddress(cycles, memory);
                 A ^= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case eorAbX: {
                 word address = absoluteAddress(cycles, memory, X);
                 A ^= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case eorAbY: {
                 word address = absoluteAddress(cycles, memory, Y);
                 A ^= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case eorIdX: {
                 word address = indirectPreAddress(cycles, memory, X);
                 A ^= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case eorIdY: {
                 word address = indirectPostAddress(cycles, memory, Y);
                 A ^= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             // ORA
             case oraImm: {
                 A |= fetchByte(cycles, memory);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case oraZpg: {
                 word address = zeroPageAddress(cycles, memory);
                 A |= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case oraZpX: {
                 word address = zeroPageAddress(cycles, memory, X);
                 A |= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case oraAbs: {
                 word address = absoluteAddress(cycles, memory);
                 A |= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case oraAbX: {
                 word address = absoluteAddress(cycles, memory, X);
                 A |= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case oraAbY: {
                 word address = absoluteAddress(cycles, memory, Y);
                 A |= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case oraIdX: {
                 word address = indirectPreAddress(cycles, memory, X);
                 A |= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case oraIdY: {
                 word address = indirectPostAddress(cycles, memory, Y);
                 A |= readByte(cycles, memory, address);
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             // BIT
             case bitZpg: {
@@ -286,23 +286,23 @@ int CPU::execute(int cycles, Memory &memory) {
             // TRANSFER INSTRUCTIONS
             case taxImp: {
                 X = A; cycles--;
-                setLoadFlags(X);
+                setAssignmentFlags(X);
             } break;
             case txaImp: {
                 A = X; cycles--;
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case tayImp: {
                 Y = A; cycles--;
-                setLoadFlags(Y);
+                setAssignmentFlags(Y);
             } break;
             case tyaImp: {
                 A = Y; cycles--;
-                setLoadFlags(A);
+                setAssignmentFlags(A);
             } break;
             case tsxImp: {
                 X = SP; cycles--;
-                setLoadFlags(X);
+                setAssignmentFlags(X);
             } break;
             case txsImp: {
                 SP = X; cycles--;
@@ -323,6 +323,80 @@ int CPU::execute(int cycles, Memory &memory) {
             case plpImp: {
                 status = (status & 0b00110000) | (stackPullByte(cycles, memory) & 0b11001111);
                 cycles -= 2;
+            } break;
+            // INCREMENT INSTRUCTIONS
+            case incZpg: {
+                word address = zeroPageAddress(cycles, memory);
+                byte value = readByte(cycles, memory, address);
+                value++; cycles--;
+                writeByte(value, cycles, memory, address);
+                setAssignmentFlags(value);
+            } break;
+            case incZpX: {
+                word address = zeroPageAddress(cycles, memory, X);
+                byte value = readByte(cycles, memory, address);
+                value++; cycles--;
+                writeByte(value, cycles, memory, address);
+                setAssignmentFlags(value);
+            } break;
+            case incAbs: {
+                word address = absoluteAddress(cycles, memory);
+                byte value = readByte(cycles, memory, address);
+                value++; cycles--;
+                writeByte(value, cycles, memory, address);
+                setAssignmentFlags(value);
+            } break;
+            case incAbX: {
+                word address = absoluteAddressFixed(cycles, memory, X);
+                byte value = readByte(cycles, memory, address);
+                value++; cycles--;
+                writeByte(value, cycles, memory, address);
+                setAssignmentFlags(value);
+            } break;
+            case inxImp: {
+                X++; cycles--;
+                setAssignmentFlags(X);
+            } break;
+            case inyImp: {
+                Y++; cycles--;
+                setAssignmentFlags(Y);
+            } break;
+            // DECREMENT INSTRUCTIONS
+            case decZpg: {
+                word address = zeroPageAddress(cycles, memory);
+                byte value = readByte(cycles, memory, address);
+                value--; cycles--;
+                writeByte(value, cycles, memory, address);
+                setAssignmentFlags(value);
+            } break;
+            case decZpX: {
+                word address = zeroPageAddress(cycles, memory, X);
+                byte value = readByte(cycles, memory, address);
+                value--; cycles--;
+                writeByte(value, cycles, memory, address);
+                setAssignmentFlags(value);
+            } break;
+            case decAbs: {
+                word address = absoluteAddress(cycles, memory);
+                byte value = readByte(cycles, memory, address);
+                value--; cycles--;
+                writeByte(value, cycles, memory, address);
+                setAssignmentFlags(value);
+            } break;
+            case decAbX: {
+                word address = absoluteAddressFixed(cycles, memory, X);
+                byte value = readByte(cycles, memory, address);
+                value--; cycles--;
+                writeByte(value, cycles, memory, address);
+                setAssignmentFlags(value);
+            } break;
+            case dexImp: {
+                X--; cycles--;
+                setAssignmentFlags(X);
+            } break;
+            case deyImp: {
+                Y--; cycles--;
+                setAssignmentFlags(Y);
             } break;
             // JUMP AND CALLS INSTRUCTIONS
             case jmpAbs: {

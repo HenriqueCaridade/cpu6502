@@ -10,7 +10,7 @@
 class CPU {
     bool isNeg(byte value);
     bool isZero(byte value);
-    void setLoadFlags(byte reg);
+    void setAssignmentFlags(byte reg);
 public:
     static const byte STATUS_MASK = 0b11011111;
     static const word RESET_ADRESS = 0xFFFC;
@@ -258,13 +258,13 @@ public:
      */
     word absoluteAddress(int& cycles, const Memory& memory, byte offset);
 
-    /** @brief Addressing Mode - Absolute Address with Offset for Store Operation
-     *  Obs: Store operations always consume the "Page Boundary Crossing" Cycle
+    /** @brief Addressing Mode - Absolute Address with Offset Fixed Cycles
+     *  Obs: Always consume the "Page Boundary Crossing" Cycle
      *
      *  Consumes 3 cycles
      *  @return Address
      */
-    word absoluteAddressS(int& cycles, const Memory& memory, byte offset);
+    word absoluteAddressFixed(int& cycles, const Memory& memory, byte offset);
 
     /** @brief Addressing Mode - Indirect Address
      *
@@ -287,13 +287,13 @@ public:
      */
     word indirectPostAddress(int& cycles, const Memory& memory, byte offset);
 
-    /** @brief Addressing Mode - Post-Indexed Indirect Address for Store Operation
-     *  Obs: Store operations always consume the "Page Boundary Crossing" Cycle
+    /** @brief Addressing Mode - Post-Indexed Indirect Address Fixed Cycles
+     *  Obs: Always consume the "Page Boundary Crossing" Cycle
      *
      *  Consumes 5 cycles
      *  @return Address
      */
-    word indirectPostAddressS(int& cycles, const Memory& memory, byte offset);
+    word indirectPostAddressFixed(int& cycles, const Memory& memory, byte offset);
 };
 
 

@@ -25,7 +25,7 @@ bool CPU::isNeg(byte value) {
 bool CPU::isZero(byte value) {
     return value == 0;
 }
-void CPU::setLoadFlags(byte reg) {
+void CPU::setAssignmentFlags(byte reg) {
     flag.Z = isZero(reg);
     flag.N = isNeg(reg);
 }
@@ -110,7 +110,7 @@ word CPU::absoluteAddress(int &cycles, const Memory &memory, byte offset) {
     return final;
 }
 
-word CPU::absoluteAddressS(int &cycles, const Memory &memory, byte offset) {
+word CPU::absoluteAddressFixed(int &cycles, const Memory &memory, byte offset) {
     cycles--;
     return fetchWord(cycles, memory) + offset;
 }
@@ -132,7 +132,7 @@ word CPU::indirectPostAddress(int &cycles, const Memory &memory, byte offset) {
     return final;
 }
 
-word CPU::indirectPostAddressS(int &cycles, const Memory &memory, byte offset) {
+word CPU::indirectPostAddressFixed(int &cycles, const Memory &memory, byte offset) {
     cycles--;
     return readWord(cycles, memory, fetchByte(cycles,memory)) + offset;
 }
