@@ -418,7 +418,7 @@ int CPU::execute(int cycles, Memory &memory) {
             } break;
             case nop: cycles--; break;
             default :
-                std::cout << "Unhandled instruction opcode: "
+                std::cout << "Unhandled instruction opcode: 0x"
                     << std::hex << instruction << std::endl;
                 throw -1;
         }
