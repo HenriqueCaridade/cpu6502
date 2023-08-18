@@ -21,9 +21,9 @@ public:
 
 TEST_F(JumpsAndSubroutinesTests, jmpAbs_CanJumpToNewLocation) {
     // Given:
-    computer.memory[0xFFFC] = CPU::jmpAbs;
-    computer.memory[0xFFFD] = 0x10;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::jmpAbs;
+    computer.memory[0x1001] = 0x10;
+    computer.memory[0x1002] = 0x30;
     const int EXPECTED_CYCLES = 3;
     const CPU cpuCopy = computer.cpu;
 
@@ -41,12 +41,11 @@ TEST_F(JumpsAndSubroutinesTests, jmpAbs_CanJumpToNewLocation) {
 //       jmpInd       //
 // ================== //
 
-
 TEST_F(JumpsAndSubroutinesTests, jmpInd_CanJumpToNewLocation) {
     // Given:
-    computer.memory[0xFFFC] = CPU::jmpInd;
-    computer.memory[0xFFFD] = 0x10;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::jmpInd;
+    computer.memory[0x1001] = 0x10;
+    computer.memory[0x1002] = 0x30;
     computer.memory[0x3010] = 0x20;
     computer.memory[0x3011] = 0x60;
     const int EXPECTED_CYCLES = 5;
@@ -68,9 +67,9 @@ TEST_F(JumpsAndSubroutinesTests, jmpInd_CanJumpToNewLocation) {
 
 TEST_F(JumpsAndSubroutinesTests, jsrAbs_CanJumpToNewLocationSavingReturnAddress) {
     // Given:
-    computer.memory[0xFFFC] = CPU::jsrAbs;
-    computer.memory[0xFFFD] = 0x10;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::jsrAbs;
+    computer.memory[0x1001] = 0x10;
+    computer.memory[0x1002] = 0x30;
     const int EXPECTED_CYCLES = 6;
     const CPU cpuCopy = computer.cpu;
 
@@ -81,8 +80,8 @@ TEST_F(JumpsAndSubroutinesTests, jsrAbs_CanJumpToNewLocationSavingReturnAddress)
     EXPECT_EQ(cyclesExecuted, EXPECTED_CYCLES);
     EXPECT_EQ(computer.cpu.PC, 0x3010);
     EXPECT_EQ(computer.cpu.SP, 0xFD);
-    EXPECT_EQ(computer.memory[0x01FE], 0xFE);
-    EXPECT_EQ(computer.memory[0x01FF], 0xFF);
+    EXPECT_EQ(computer.memory[0x01FE], 0x02);
+    EXPECT_EQ(computer.memory[0x01FF], 0x10);
     VerifyUnchangedFlags(cpuCopy);
 }
 
@@ -95,7 +94,7 @@ TEST_F(JumpsAndSubroutinesTests, rtsImp_CanJumpToNewLocationSavingReturnAddress)
     computer.cpu.SP = 0xFD;
     computer.memory[0x01FE] = 0x10;
     computer.memory[0x01FF] = 0x30;
-    computer.memory[0xFFFC] = CPU::rtsImp;
+    computer.memory[0x1000] = CPU::rtsImp;
     const int EXPECTED_CYCLES = 6;
     const CPU cpuCopy = computer.cpu;
 
@@ -115,10 +114,9 @@ TEST_F(JumpsAndSubroutinesTests, rtsImp_CanJumpToNewLocationSavingReturnAddress)
 
 TEST_F(JumpsAndSubroutinesTests, jsrAbs_rtsImp_CanJumpToNewLocationAndJumpBack) {
     // Given:
-    computer.reset(0xFFF0);
-    computer.memory[0xFFF0] = CPU::jsrAbs;
-    computer.memory[0xFFF1] = 0x10;
-    computer.memory[0xFFF2] = 0x30;
+    computer.memory[0x1000] = CPU::jsrAbs;
+    computer.memory[0x1001] = 0x10;
+    computer.memory[0x1002] = 0x30;
     computer.memory[0x3010] = CPU::rtsImp;
     const int EXPECTED_CYCLES = 6 + 6;
     const CPU cpuCopy = computer.cpu;
@@ -128,7 +126,7 @@ TEST_F(JumpsAndSubroutinesTests, jsrAbs_rtsImp_CanJumpToNewLocationAndJumpBack) 
 
     // Then:
     EXPECT_EQ(cyclesExecuted, EXPECTED_CYCLES);
-    EXPECT_EQ(computer.cpu.PC, 0xFFF3);
+    EXPECT_EQ(computer.cpu.PC, 0x1003);
     EXPECT_EQ(computer.cpu.SP, 0xFF);
     VerifyUnchangedFlags(cpuCopy);
 }

@@ -22,8 +22,8 @@ public:
 TEST_F(StoreRegisterXTests, stxZpg_CanStoreXRegisterIntoMemory) {
     // Given:
     computer.cpu.X = 0x35;
-    computer.memory[0xFFFC] = CPU::stxZpg;
-    computer.memory[0xFFFD] = 0x80;
+    computer.memory[0x1000] = CPU::stxZpg;
+    computer.memory[0x1001] = 0x80;
     const int EXPECTED_CYCLES = 3;
     const CPU cpuCopy = computer.cpu;
 
@@ -44,8 +44,8 @@ TEST_F(StoreRegisterXTests, stxZpY_CanStoreXRegisterIntoMemory) {
     // Given:
     computer.cpu.X = 0x35;
     computer.cpu.Y = 0x02;
-    computer.memory[0xFFFC] = CPU::stxZpY;
-    computer.memory[0xFFFD] = 0x80;
+    computer.memory[0x1000] = CPU::stxZpY;
+    computer.memory[0x1001] = 0x80;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 
@@ -62,8 +62,8 @@ TEST_F(StoreRegisterXTests, stxZpY_CanStoreXRegisterIntoMemory_Wraps) {
     // Given:
     computer.cpu.X = 0x35;
     computer.cpu.Y = 0x86;
-    computer.memory[0xFFFC] = CPU::stxZpY;
-    computer.memory[0xFFFD] = 0x84;
+    computer.memory[0x1000] = CPU::stxZpY;
+    computer.memory[0x1001] = 0x84;
     // 0x84 + 0x86 = 0x10A  => 0x0A (with wrap)
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
@@ -84,9 +84,9 @@ TEST_F(StoreRegisterXTests, stxZpY_CanStoreXRegisterIntoMemory_Wraps) {
 TEST_F(StoreRegisterXTests, stxAbs_CanStoreXRegisterIntoMemory) {
     // Given:
     computer.cpu.X = 0x35;
-    computer.memory[0xFFFC] = CPU::stxAbs;
-    computer.memory[0xFFFD] = 0x10;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::stxAbs;
+    computer.memory[0x1001] = 0x10;
+    computer.memory[0x1002] = 0x30;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 

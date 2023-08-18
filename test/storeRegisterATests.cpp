@@ -22,8 +22,8 @@ public:
 TEST_F(StoreRegisterATests, staZpg_CanStoreARegisterIntoMemory) {
     // Given:
     computer.cpu.A = 0x35;
-    computer.memory[0xFFFC] = CPU::staZpg;
-    computer.memory[0xFFFD] = 0x80;
+    computer.memory[0x1000] = CPU::staZpg;
+    computer.memory[0x1001] = 0x80;
     const int EXPECTED_CYCLES = 3;
     const CPU cpuCopy = computer.cpu;
 
@@ -44,8 +44,8 @@ TEST_F(StoreRegisterATests, staZpX_CanStoreARegisterIntoMemory) {
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.X = 0x02;
-    computer.memory[0xFFFC] = CPU::staZpX;
-    computer.memory[0xFFFD] = 0x80;
+    computer.memory[0x1000] = CPU::staZpX;
+    computer.memory[0x1001] = 0x80;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 
@@ -62,8 +62,8 @@ TEST_F(StoreRegisterATests, staZpX_CanStoreARegisterIntoMemory_Wraps) {
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.X = 0x86;
-    computer.memory[0xFFFC] = CPU::staZpX;
-    computer.memory[0xFFFD] = 0x84;
+    computer.memory[0x1000] = CPU::staZpX;
+    computer.memory[0x1001] = 0x84;
     // 0x84 + 0x86 = 0x10A  => 0x0A (with wrap)
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
@@ -84,9 +84,9 @@ TEST_F(StoreRegisterATests, staZpX_CanStoreARegisterIntoMemory_Wraps) {
 TEST_F(StoreRegisterATests, staAbs_CanStoreARegisterIntoMemory) {
     // Given:
     computer.cpu.A = 0x35;
-    computer.memory[0xFFFC] = CPU::staAbs;
-    computer.memory[0xFFFD] = 0x10;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::staAbs;
+    computer.memory[0x1001] = 0x10;
+    computer.memory[0x1002] = 0x30;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 
@@ -107,9 +107,9 @@ TEST_F(StoreRegisterATests, staAbX_CanStoreARegisterIntoMemory) {
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.X = 0x02;
-    computer.memory[0xFFFC] = CPU::staAbX;
-    computer.memory[0xFFFD] = 0x10;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::staAbX;
+    computer.memory[0x1001] = 0x10;
+    computer.memory[0x1002] = 0x30;
     const int EXPECTED_CYCLES = 5;
     const CPU cpuCopy = computer.cpu;
 
@@ -126,9 +126,9 @@ TEST_F(StoreRegisterATests, staAbX_CanStoreARegisterIntoMemory_CrossingPageBound
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.X = 0x86;
-    computer.memory[0xFFFC] = CPU::staAbX;
-    computer.memory[0xFFFD] = 0x84;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::staAbX;
+    computer.memory[0x1001] = 0x84;
+    computer.memory[0x1002] = 0x30;
     // 0x3084 + 0x86 = 0x310A
     const int EXPECTED_CYCLES = 5;
     const CPU cpuCopy = computer.cpu;
@@ -150,9 +150,9 @@ TEST_F(StoreRegisterATests, staAbY_CanStoreARegisterIntoMemory) {
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.Y = 0x02;
-    computer.memory[0xFFFC] = CPU::staAbY;
-    computer.memory[0xFFFD] = 0x10;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::staAbY;
+    computer.memory[0x1001] = 0x10;
+    computer.memory[0x1002] = 0x30;
     const int EXPECTED_CYCLES = 5;
     const CPU cpuCopy = computer.cpu;
 
@@ -169,9 +169,9 @@ TEST_F(StoreRegisterATests, staAbY_CanStoreARegisterIntoMemory_CrossingPageBound
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.Y = 0x86;
-    computer.memory[0xFFFC] = CPU::staAbY;
-    computer.memory[0xFFFD] = 0x84;
-    computer.memory[0xFFFE] = 0x30;
+    computer.memory[0x1000] = CPU::staAbY;
+    computer.memory[0x1001] = 0x84;
+    computer.memory[0x1002] = 0x30;
     // 0x3084 + 0x86 = 0x310A
     const int EXPECTED_CYCLES = 5;
     const CPU cpuCopy = computer.cpu;
@@ -193,8 +193,8 @@ TEST_F(StoreRegisterATests, staIdX_CanStoreARegisterIntoMemory) {
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.X = 0x02;
-    computer.memory[0xFFFC] = CPU::staIdX;
-    computer.memory[0xFFFD] = 0x80;
+    computer.memory[0x1000] = CPU::staIdX;
+    computer.memory[0x1001] = 0x80;
     computer.memory[0x0082] = 0x10;
     computer.memory[0x0083] = 0x30;
     const int EXPECTED_CYCLES = 6;
@@ -213,8 +213,8 @@ TEST_F(StoreRegisterATests, staIdX_CanStoreARegisterIntoMemory_Wraps) {
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.X = 0x86;
-    computer.memory[0xFFFC] = CPU::staIdX;
-    computer.memory[0xFFFD] = 0x84;
+    computer.memory[0x1000] = CPU::staIdX;
+    computer.memory[0x1001] = 0x84;
     // 0x84 + 0x86 = 0x10A  => 0x0A (with wrap)
     computer.memory[0x000A] = 0x10;
     computer.memory[0x000B] = 0x30;
@@ -238,8 +238,8 @@ TEST_F(StoreRegisterATests, staIdY_CanStoreARegisterIntoMemory) {
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.Y = 0x02;
-    computer.memory[0xFFFC] = CPU::staIdY;
-    computer.memory[0xFFFD] = 0x80;
+    computer.memory[0x1000] = CPU::staIdY;
+    computer.memory[0x1001] = 0x80;
     computer.memory[0x0080] = 0x10;
     computer.memory[0x0081] = 0x30;
     const int EXPECTED_CYCLES = 6;
@@ -258,8 +258,8 @@ TEST_F(StoreRegisterATests, staIdY_CanStoreARegisterIntoMemory_CrossingPageBound
     // Given:
     computer.cpu.A = 0x35;
     computer.cpu.Y = 0x86;
-    computer.memory[0xFFFC] = CPU::staIdY;
-    computer.memory[0xFFFD] = 0x80;
+    computer.memory[0x1000] = CPU::staIdY;
+    computer.memory[0x1001] = 0x80;
     computer.memory[0x0080] = 0x84;
     computer.memory[0x0081] = 0x30;
     // 0x3084 + 0x86 = 0x310A

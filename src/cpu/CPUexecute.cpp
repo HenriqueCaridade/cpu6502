@@ -268,6 +268,21 @@ int CPU::execute(int cycles, Memory &memory) {
                 A |= readByte(cycles, memory, address);
                 setLoadFlags(A);
             } break;
+            // BIT
+            case bitZpg: {
+                word address = zeroPageAddress(cycles, memory);
+                byte value = readByte(cycles, memory, address);
+                flag.Z = isZero(A & value);
+                flag.N = isNeg(value);
+                flag.V = (value & 0x40) == 0x40; // 6th bit
+            } break;
+            case bitAbs: {
+                word address = absoluteAddress(cycles, memory);
+                byte value = readByte(cycles, memory, address);
+                flag.Z = isZero(A & value);
+                flag.N = isNeg(value);
+                flag.V = (value & 0x40) == 0x40; // 6th bit
+            } break;
             // TRANSFER INSTRUCTIONS
             case taxImp: {
                 X = A; cycles--;

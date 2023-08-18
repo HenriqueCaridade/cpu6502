@@ -30,7 +30,7 @@ public:
 TEST_F(StackInstructionsTests, phaImp_CanPushARegisterToStack) {
     // Given:
     computer.cpu.A = 0x35;
-    computer.memory[0xFFFC] = CPU::phaImp;
+    computer.memory[0x1000] = CPU::phaImp;
     const int EXPECTED_CYCLES = 3;
     const CPU cpuCopy = computer.cpu;
 
@@ -51,7 +51,7 @@ TEST_F(StackInstructionsTests, phaImp_CanPushARegisterToStack) {
 TEST_F(StackInstructionsTests, phpImp_CanPushProcessorStatusToStack) {
     // Given:
     computer.cpu.status = 0b11111011;
-    computer.memory[0xFFFC] = CPU::phpImp;
+    computer.memory[0x1000] = CPU::phpImp;
     const int EXPECTED_CYCLES = 3;
     const CPU cpuCopy = computer.cpu;
 
@@ -68,7 +68,7 @@ TEST_F(StackInstructionsTests, phpImp_CanPushProcessorStatusToStack) {
 TEST_F(StackInstructionsTests, phpImp_CanPushProcessorStatusToStack_Set5thBit) {
     // Given:
     computer.cpu.status = 0b11011011;
-    computer.memory[0xFFFC] = CPU::phpImp;
+    computer.memory[0x1000] = CPU::phpImp;
     const int EXPECTED_CYCLES = 3;
     const CPU cpuCopy = computer.cpu;
 
@@ -85,7 +85,7 @@ TEST_F(StackInstructionsTests, phpImp_CanPushProcessorStatusToStack_Set5thBit) {
 TEST_F(StackInstructionsTests, phpImp_CanPushProcessorStatusToStack_SetBreakBit) {
     // Given:
     computer.cpu.status = 0b11101011;
-    computer.memory[0xFFFC] = CPU::phpImp;
+    computer.memory[0x1000] = CPU::phpImp;
     const int EXPECTED_CYCLES = 3;
     const CPU cpuCopy = computer.cpu;
 
@@ -102,7 +102,7 @@ TEST_F(StackInstructionsTests, phpImp_CanPushProcessorStatusToStack_SetBreakBit)
 TEST_F(StackInstructionsTests, phpImp_CanPushProcessorStatusToStack_Set5thAndBreakBit) {
     // Given:
     computer.cpu.status = 0b11001011;
-    computer.memory[0xFFFC] = CPU::phpImp;
+    computer.memory[0x1000] = CPU::phpImp;
     const int EXPECTED_CYCLES = 3;
     const CPU cpuCopy = computer.cpu;
 
@@ -124,7 +124,7 @@ TEST_F(StackInstructionsTests, plaImp_CanPullARegisterFromStack) {
     // Given:
     computer.cpu.SP = 0xFE;
     computer.memory[0x01FF] = 0x35;
-    computer.memory[0xFFFC] = CPU::plaImp;
+    computer.memory[0x1000] = CPU::plaImp;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 
@@ -147,7 +147,7 @@ TEST_F(StackInstructionsTests, plpImp_CanPullProcessorStatusFromStack) {
     computer.cpu.status = 0b00110000;
     computer.cpu.SP = 0xFE;
     computer.memory[0x01FF] = 0b11111111;
-    computer.memory[0xFFFC] = CPU::plpImp;
+    computer.memory[0x1000] = CPU::plpImp;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 
@@ -166,7 +166,7 @@ TEST_F(StackInstructionsTests, plpImp_CanPullProcessorStatusFromStack_Maintains5
     computer.cpu.status = 0b00100000;
     computer.cpu.SP = 0xFE;
     computer.memory[0x01FF] = 0b11111111;
-    computer.memory[0xFFFC] = CPU::plpImp;
+    computer.memory[0x1000] = CPU::plpImp;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 
@@ -185,7 +185,7 @@ TEST_F(StackInstructionsTests, plpImp_CanPullProcessorStatusFromStack_MaintainsB
     computer.cpu.status = 0b00010000;
     computer.cpu.SP = 0xFE;
     computer.memory[0x01FF] = 0b11111111;
-    computer.memory[0xFFFC] = CPU::plpImp;
+    computer.memory[0x1000] = CPU::plpImp;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 
@@ -204,7 +204,7 @@ TEST_F(StackInstructionsTests, plpImp_CanPullProcessorStatusFromStack_Maintains5
     computer.cpu.status = 0b00110000;
     computer.cpu.SP = 0xFE;
     computer.memory[0x01FF] = 0b11111111;
-    computer.memory[0xFFFC] = CPU::plpImp;
+    computer.memory[0x1000] = CPU::plpImp;
     const int EXPECTED_CYCLES = 4;
     const CPU cpuCopy = computer.cpu;
 

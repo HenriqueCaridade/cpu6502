@@ -19,7 +19,7 @@ public:
         computer.cpu.flag.N = true;
         computer.cpu.flag.Z = true;
         computer.cpu.*a = 0x35;
-        computer.memory[0xFFFC] = instruction;
+        computer.memory[0x1000] = instruction;
         const int EXPECTED_CYCLES = 2;
         const CPU cpuCopy = computer.cpu;
 
@@ -39,7 +39,7 @@ public:
         computer.cpu.flag.N = false;
         computer.cpu.flag.Z = true;
         computer.cpu.*a = 0x95;
-        computer.memory[0xFFFC] = instruction;
+        computer.memory[0x1000] = instruction;
         const int EXPECTED_CYCLES = 2;
         const CPU cpuCopy = computer.cpu;
 
@@ -59,7 +59,7 @@ public:
         computer.cpu.flag.N = true;
         computer.cpu.flag.Z = false;
         computer.cpu.*a = 0x00;
-        computer.memory[0xFFFC] = instruction;
+        computer.memory[0x1000] = instruction;
         const int EXPECTED_CYCLES = 2;
         const CPU cpuCopy = computer.cpu;
 
@@ -164,7 +164,7 @@ TEST_F(TransferTests, txsImp_CanTransferXRegisterToStackPointer) {
     computer.cpu.flag.N = true;
     computer.cpu.flag.Z = true;
     computer.cpu.X = 0x35;
-    computer.memory[0xFFFC] = CPU::txsImp;
+    computer.memory[0x1000] = CPU::txsImp;
     const int EXPECTED_CYCLES = 2;
     const CPU cpuCopy = computer.cpu;
 

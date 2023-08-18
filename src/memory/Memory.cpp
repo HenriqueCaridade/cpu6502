@@ -24,7 +24,7 @@ void Memory::writeWord(word value, word address) {
 }
 
 void Memory::clear() {
-    memset(data, 0, MAX_MEM);
+    memset(data, 0, MAX_MEM - 6);
 }
 
 

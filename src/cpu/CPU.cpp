@@ -1,20 +1,33 @@
 
 #include "CPU.h"
 
-CPU::CPU() {
-    reset();
+CPU::CPU() = default;
+
+CPU::CPU(const Memory& memory) {
+    reset(memory);
 }
 
-void CPU::reset(word resetVector) {
-    PC = resetVector;
+void CPU::reset(const Memory& memory) {
+    resetPC(memory);
     SP = 0xFF;
     A = X = Y = 0x00;
     status = 0x00;
 }
 
+void CPU::resetPC(const Memory &memory) {
+    PC = memory.readWord(CPU::RESET_ADRESS);
+}
+
+bool CPU::isNeg(byte value) {
+    return (value & 0x80) == 0x80;
+}
+
+bool CPU::isZero(byte value) {
+    return value == 0;
+}
 void CPU::setLoadFlags(byte reg) {
-    flag.Z = (reg == 0);
-    flag.N = (reg & 0x80) == 0x80;
+    flag.Z = isZero(reg);
+    flag.N = isNeg(reg);
 }
 
 CPU::Instruction CPU::fetchInstruction(int& cycles, const Memory &memory) {
@@ -123,3 +136,4 @@ word CPU::indirectPostAddressS(int &cycles, const Memory &memory, byte offset) {
     cycles--;
     return readWord(cycles, memory, fetchByte(cycles,memory)) + offset;
 }
+

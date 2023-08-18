@@ -23,7 +23,7 @@ public:
     /// Write word (little endian)
     void writeWord(word value, word address);
 
-    /// Zeros all data
+    /// Zeros all data except the System Vectors
     void clear();
 
     friend class Computer;

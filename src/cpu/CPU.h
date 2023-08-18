@@ -8,10 +8,12 @@
 // https://www.masswerk.at/6502/6502_instruction_set.html
 
 class CPU {
+    bool isNeg(byte value);
+    bool isZero(byte value);
     void setLoadFlags(byte reg);
-
 public:
     static const byte STATUS_MASK = 0b11011111;
+    static const word RESET_ADRESS = 0xFFFC;
     union {
         byte status = 0x00; /// Status Register [NV-BDIZC]
         struct {
@@ -100,6 +102,9 @@ public:
         oraAbY = 0x19,
         oraIdX = 0x01,
         oraIdY = 0x11,
+        // BIT
+        bitZpg = 0x24,
+        bitAbs = 0x2C,
         // Transfer
         taxImp = 0xAA,
         txaImp = 0x8A,
@@ -120,12 +125,17 @@ public:
         // No Operation
         nop = 0xEA,
     };
-
     /// @brief Default Constructor
     CPU();
 
+    /// @brief Constructor
+    CPU(const Memory& memory);
+
     /// @brief Resets the cpu to the initial state.
-    void reset(word resetVector = 0xFFFC);
+    void reset(const Memory& memory);
+
+    /// @brief Resets the PC to the reset vector.
+    void resetPC(const Memory& memory);
 
     /** @brief Execute the number of cycles given.
      *
