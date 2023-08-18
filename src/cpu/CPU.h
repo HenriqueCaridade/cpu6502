@@ -117,6 +117,20 @@ public:
         plaImp = 0x68,
         phpImp = 0x08,
         plpImp = 0x28,
+        // Increments
+        incZpg = 0xE6,
+        incZpX = 0xF6,
+        incAbs = 0xEE,
+        incAbX = 0xFE,
+        inxImp = 0xE8,
+        inyImp = 0xC8,
+        // Decrements
+        decZpg = 0xC6,
+        decZpX = 0xD6,
+        decAbs = 0xCE,
+        decAbX = 0xDE,
+        dexImp = 0xCA,
+        deyImp = 0x88,
         // Jump & Calls
         jmpAbs = 0x4C,
         jmpInd = 0x6C,
