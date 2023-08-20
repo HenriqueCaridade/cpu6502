@@ -8,8 +8,10 @@
 // https://www.masswerk.at/6502/6502_instruction_set.html
 
 class CPU {
-    bool isNeg(byte value);
-    bool isZero(byte value);
+    static bool isNeg(byte value);
+    static bool isZero(byte value);
+    static word addOffsetWithPageBoundary(word address, byte offset, int& cycles);
+    static word addRelativeOffsetWithPageBoundary(word address, sbyte offset, int& cycles);
     void setAssignmentFlags(byte reg);
 public:
     static const byte STATUS_MASK = 0b11011111;
@@ -131,6 +133,15 @@ public:
         decAbX = 0xDE,
         dexImp = 0xCA,
         deyImp = 0x88,
+        // Branches
+        bccRel = 0x90,
+        bcsRel = 0xB0,
+        beqRel = 0xF0,
+        bmiRel = 0x30,
+        bneRel = 0xD0,
+        bplRel = 0x10,
+        bvcRel = 0x50,
+        bvsRel = 0x70,
         // Jump & Calls
         jmpAbs = 0x4C,
         jmpInd = 0x6C,

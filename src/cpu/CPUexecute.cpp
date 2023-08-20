@@ -398,6 +398,47 @@ int CPU::execute(int cycles, Memory &memory) {
                 Y--; cycles--;
                 setAssignmentFlags(Y);
             } break;
+            // BRANCH INSTRUCTIONS
+            case bccRel: {
+                byte offset = fetchByte(cycles, memory);
+                if (flag.C) break; cycles--;
+                PC = addRelativeOffsetWithPageBoundary(PC, (sbyte) offset, cycles);
+            } break;
+            case bcsRel: {
+                byte offset = fetchByte(cycles, memory);
+                if (!flag.C) break; cycles--;
+                PC = addRelativeOffsetWithPageBoundary(PC, (sbyte) offset, cycles);
+            } break;
+            case beqRel: {
+                byte offset = fetchByte(cycles, memory);
+                if (!flag.Z) break; cycles--;
+                PC = addRelativeOffsetWithPageBoundary(PC, (sbyte) offset, cycles);
+            } break;
+            case bmiRel: {
+                byte offset = fetchByte(cycles, memory);
+                if (!flag.N) break; cycles--;
+                PC = addRelativeOffsetWithPageBoundary(PC, (sbyte) offset, cycles);
+            } break;
+            case bneRel: {
+                byte offset = fetchByte(cycles, memory);
+                if (flag.Z) break; cycles--;
+                PC = addRelativeOffsetWithPageBoundary(PC, (sbyte) offset, cycles);
+            } break;
+            case bplRel: {
+                byte offset = fetchByte(cycles, memory);
+                if (flag.N) break; cycles--;
+                PC = addRelativeOffsetWithPageBoundary(PC, (sbyte) offset, cycles);
+            } break;
+            case bvcRel: {
+                byte offset = fetchByte(cycles, memory);
+                if (flag.V) break; cycles--;
+                PC = addRelativeOffsetWithPageBoundary(PC, (sbyte) offset, cycles);
+            } break;
+            case bvsRel: {
+                byte offset = fetchByte(cycles, memory);
+                if (!flag.V) break; cycles--;
+                PC = addRelativeOffsetWithPageBoundary(PC, (sbyte) offset, cycles);
+            } break;
             // JUMP AND CALLS INSTRUCTIONS
             case jmpAbs: {
                 word address = absoluteAddress(cycles, memory);
@@ -425,3 +466,4 @@ int CPU::execute(int cycles, Memory &memory) {
     }
     return cyclesExpected - cycles;
 }
+

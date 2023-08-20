@@ -25,6 +25,21 @@ bool CPU::isNeg(byte value) {
 bool CPU::isZero(byte value) {
     return value == 0;
 }
+
+word CPU::addOffsetWithPageBoundary(word address, byte offset, int& cycles) {
+    word final = address + offset;
+    // Page Boundary Crossing
+    if ((final & 0x0100) != (address & 0x0100)) cycles--;
+    return final;
+}
+
+word CPU::addRelativeOffsetWithPageBoundary(word address, sbyte offset, int &cycles) {
+    word final = address + offset;
+    // Page Boundary Crossing
+    if ((final & 0x0100) != (address & 0x0100)) cycles--;
+    return final;
+}
+
 void CPU::setAssignmentFlags(byte reg) {
     flag.Z = isZero(reg);
     flag.N = isNeg(reg);
@@ -104,10 +119,7 @@ word CPU::absoluteAddress(int &cycles, const Memory &memory) {
 
 word CPU::absoluteAddress(int &cycles, const Memory &memory, byte offset) {
     word data = fetchWord(cycles, memory);
-    word final = data + offset;
-    // Page Boundary Crossing
-    if ((final & 0x0100) != (data & 0x0100)) cycles--;
-    return final;
+    return addOffsetWithPageBoundary(data, offset, cycles);
 }
 
 word CPU::absoluteAddressFixed(int &cycles, const Memory &memory, byte offset) {
@@ -126,10 +138,7 @@ word CPU::indirectPreAddress(int &cycles, const Memory &memory, byte offset) {
 
 word CPU::indirectPostAddress(int &cycles, const Memory &memory, byte offset) {
     word data = readWord(cycles, memory, fetchByte(cycles,memory));
-    word final = data + offset;
-    // Page Boundary Crossing
-    if ((final & 0x0100) != (data & 0x0100)) cycles--;
-    return final;
+    return addOffsetWithPageBoundary(data, offset, cycles);
 }
 
 word CPU::indirectPostAddressFixed(int &cycles, const Memory &memory, byte offset) {
