@@ -19,7 +19,7 @@ void CPU::resetPC(const Memory &memory) {
 }
 
 bool CPU::isNeg(byte value) {
-    return (value & 0x80) == 0x80;
+    return (value & FLAG_N) == FLAG_N;
 }
 
 bool CPU::isZero(byte value) {

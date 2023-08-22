@@ -398,6 +398,28 @@ int CPU::execute(int cycles, Memory &memory) {
                 Y--; cycles--;
                 setAssignmentFlags(Y);
             } break;
+            // FLAG INSTRUCTIONS
+            case clcImp: {
+                flag.C = false; cycles--;
+            } break;
+            case cldImp: {
+                flag.D = false; cycles--;
+            } break;
+            case cliImp: {
+                flag.I = false; cycles--;
+            } break;
+            case clvImp: {
+                flag.V = false; cycles--;
+            } break;
+            case secImp: {
+                flag.C = true; cycles--;
+            } break;
+            case sedImp: {
+                flag.D = true; cycles--;
+            } break;
+            case seiImp: {
+                flag.I = true; cycles--;
+            } break;
             // BRANCH INSTRUCTIONS
             case bccRel: {
                 byte offset = fetchByte(cycles, memory);

@@ -16,6 +16,13 @@ class CPU {
 public:
     static const byte STATUS_MASK = 0b11011111;
     static const word RESET_ADRESS = 0xFFFC;
+    static const byte FLAG_C = 0b00000001;
+    static const byte FLAG_Z = 0b00000010;
+    static const byte FLAG_I = 0b00000100;
+    static const byte FLAG_D = 0b00001000;
+    static const byte FLAG_B = 0b00010000;
+    static const byte FLAG_V = 0b01000000;
+    static const byte FLAG_N = 0b10000000;
     union {
         byte status = 0x00; /// Status Register [NV-BDIZC]
         struct {
@@ -133,6 +140,14 @@ public:
         decAbX = 0xDE,
         dexImp = 0xCA,
         deyImp = 0x88,
+        // Flag Instructions
+        clcImp = 0x18,
+        cldImp = 0xD8,
+        cliImp = 0x58,
+        clvImp = 0xB8,
+        secImp = 0x38,
+        sedImp = 0xF8,
+        seiImp = 0x78,
         // Branches
         bccRel = 0x90,
         bcsRel = 0xB0,
