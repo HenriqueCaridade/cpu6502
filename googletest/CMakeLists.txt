@@ -29,7 +29,9 @@ set(cpu6502_TEST_FILES
         ../test/programTests.cpp
         ../test/incrementAndDecrementTests.cpp
         ../test/branchInstructionsTests.cpp
-        ../test/changeFlagsTests.cpp)
+        ../test/changeFlagsTests.cpp
+        ../test/addWithCarryTests.cpp
+        ../test/subWithCarryTests.cpp)
 
 add_executable(Google_Tests_run ${cpu6502_TEST_FILES} ${cpu6502_SOURCE_FILES})
 target_link_libraries(Google_Tests_run gtest gtest_main)

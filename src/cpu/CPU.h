@@ -140,6 +140,25 @@ public:
         decAbX = 0xDE,
         dexImp = 0xCA,
         deyImp = 0x88,
+        // Arithmetic
+        // Add with Carry
+        adcImm = 0x69,
+        adcZpg = 0x65,
+        adcZpX = 0x75,
+        adcAbs = 0x6D,
+        adcAbX = 0x7D,
+        adcAbY = 0x79,
+        adcIdX = 0x61,
+        adcIdY = 0x71,
+        // Sub with Carry
+        sbcImm = 0xE9,
+        sbcZpg = 0xE5,
+        sbcZpX = 0xF5,
+        sbcAbs = 0xED,
+        sbcAbX = 0xFD,
+        sbcAbY = 0xF9,
+        sbcIdX = 0xE1,
+        sbcIdY = 0xF1,
         // Flag Instructions
         clcImp = 0x18,
         cldImp = 0xD8,

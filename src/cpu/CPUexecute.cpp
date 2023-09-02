@@ -398,6 +398,94 @@ int CPU::execute(int cycles, Memory &memory) {
                 Y--; cycles--;
                 setAssignmentFlags(Y);
             } break;
+            // ARITHMETIC INSTRUCTIONS
+            case adcImm: {
+                byte value = fetchByte(cycles, memory);
+                byte result = A + value;
+                bool flagC = result < A;
+                if (flag.C) { result++; if (result == 0) flagC = true; }
+                flag.C = flagC;
+                bool sign = isNeg(A);
+                flag.V = (sign == isNeg(value)) && (sign != isNeg(result));
+                A = result; setAssignmentFlags(A);
+            } break;
+            case adcZpg: {
+                word address = zeroPageAddress(cycles, memory);
+                byte value = readByte(cycles, memory, address);
+                byte result = A + value;
+                bool flagC = result < A;
+                if (flag.C) { result++; if (result == 0) flagC = true; }
+                flag.C = flagC;
+                bool sign = isNeg(A);
+                flag.V = (sign == isNeg(value)) && (sign != isNeg(result));
+                A = result; setAssignmentFlags(A);
+            } break;
+            case adcZpX: {
+                word address = zeroPageAddress(cycles, memory, X);
+                byte value = readByte(cycles, memory, address);
+                byte result = A + value;
+                bool flagC = result < A;
+                if (flag.C) { result++; if (result == 0) flagC = true; }
+                flag.C = flagC;
+                bool sign = isNeg(A);
+                flag.V = (sign == isNeg(value)) && (sign != isNeg(result));
+                A = result; setAssignmentFlags(A);
+            } break;
+            case adcAbs: {
+                word address = absoluteAddress(cycles, memory);
+                byte value = readByte(cycles, memory, address);
+                byte result = A + value;
+                bool flagC = result < A;
+                if (flag.C) { result++; if (result == 0) flagC = true; }
+                flag.C = flagC;
+                bool sign = isNeg(A);
+                flag.V = (sign == isNeg(value)) && (sign != isNeg(result));
+                A = result; setAssignmentFlags(A);
+            } break;
+            case adcAbX: {
+                word address = absoluteAddress(cycles, memory, X);
+                byte value = readByte(cycles, memory, address);
+                byte result = A + value;
+                bool flagC = result < A;
+                if (flag.C) { result++; if (result == 0) flagC = true; }
+                flag.C = flagC;
+                bool sign = isNeg(A);
+                flag.V = (sign == isNeg(value)) && (sign != isNeg(result));
+                A = result; setAssignmentFlags(A);
+            } break;
+            case adcAbY: {
+                word address = absoluteAddress(cycles, memory, Y);
+                byte value = readByte(cycles, memory, address);
+                byte result = A + value;
+                bool flagC = result < A;
+                if (flag.C) { result++; if (result == 0) flagC = true; }
+                flag.C = flagC;
+                bool sign = isNeg(A);
+                flag.V = (sign == isNeg(value)) && (sign != isNeg(result));
+                A = result; setAssignmentFlags(A);
+            } break;
+            case adcIdX: {
+                word address = indirectPreAddress(cycles, memory, X);
+                byte value = readByte(cycles, memory, address);
+                byte result = A + value;
+                bool flagC = result < A;
+                if (flag.C) { result++; if (result == 0) flagC = true; }
+                flag.C = flagC;
+                bool sign = isNeg(A);
+                flag.V = (sign == isNeg(value)) && (sign != isNeg(result));
+                A = result; setAssignmentFlags(A);
+            } break;
+            case adcIdY: {
+                word address = indirectPostAddress(cycles, memory, Y);
+                byte value = readByte(cycles, memory, address);
+                byte result = A + value;
+                bool flagC = result < A;
+                if (flag.C) { result++; if (result == 0) flagC = true; }
+                flag.C = flagC;
+                bool sign = isNeg(A);
+                flag.V = (sign == isNeg(value)) && (sign != isNeg(result));
+                A = result; setAssignmentFlags(A);
+            } break;
             // FLAG INSTRUCTIONS
             case clcImp: {
                 flag.C = false; cycles--;
